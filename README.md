@@ -1,5 +1,3 @@
-<p align="center"><img src="https://snaacky.me/emerald_logo.png" width="150" height="150"/></p>
-
 # Emerald
 A no-flash cheat for CS:GO written in Python.
 
