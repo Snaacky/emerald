@@ -1,3 +1,2 @@
 pymem
-keyboard
 #pywin32api
