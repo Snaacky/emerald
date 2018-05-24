@@ -1,35 +1,24 @@
-import keyboard
 import pymem
 import pymem.process
 import time
-from config import *
+
+dwLocalPlayer = (0xAA9AB4)
+m_flFlashMaxAlpha = (0xA2F4)
+dwEntityList = (0x4A8473C)
 
 pm = pymem.Pymem("csgo.exe")
-
+client = pymem.process.module_from_name(pm.process_id, "client.dll").base_address
 
 def main():
-    print("Emerald has launched. Enable no-flash with {}.".format(flash_key))
-    client = pymem.process.module_from_name(pm.process_id, "client.dll")
-    player = client.base_address + dwLocalPlayer
-    flash_value = pm.read_int(player) + m_flFlashMaxAlpha
-
-    toggled = False
+    print("Emerald has launched.")
 
     while True:
-        if keyboard.is_pressed(flash_key):
-            if not toggled:
-                toggled = True
-                pm.write_float(flash_value, float(0))
-                print("No-flash has been toggled on.")
-                time.sleep(1)
-            else:
-                toggled = False
-                pm.write_float(flash_value, float(255))
-                print("No-flash has been toggled off.")
-                time.sleep(1)
-
-        time.sleep(0.1)  # Prevents RuntimeError
-
+        # check if player is in-game (if entity list exists)
+        if pm.read_int(client + dwEntityList) > 0:
+            player = pm.read_int(client + dwLocalPlayer)
+            flash_value = player + m_flFlashMaxAlpha
+            pm.write_float(flash_value, float(0))
+        time.sleep(0.002)
 
 if __name__ == '__main__':
     main()
