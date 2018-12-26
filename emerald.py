@@ -2,11 +2,11 @@ import pymem
 import pymem.process
 import time
 
-dwLocalPlayer = (0xC5E87C)
-m_flFlashMaxAlpha = (0xA304)
+dwLocalPlayer = (0xCBD6B4)
+m_flFlashMaxAlpha = (0xA3DC)
 
 pm = pymem.Pymem("csgo.exe")
-client = pymem.process.module_from_name(pm.process_id, "client_panorama.dll").base_address
+client = pymem.process.module_from_name(pm.process_handle, "client_panorama.dll").lpBaseOfDll
 
 
 def main():
