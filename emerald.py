@@ -2,8 +2,8 @@ import pymem
 import pymem.process
 import time
 
-dwLocalPlayer = (0xCBD6B4)
-m_flFlashMaxAlpha = (0xA3DC)
+dwLocalPlayer = (0xD2FB84)
+m_flFlashMaxAlpha = (0xA40C)
 
 pm = pymem.Pymem("csgo.exe")
 client = pymem.process.module_from_name(pm.process_handle, "client_panorama.dll").lpBaseOfDll
@@ -13,15 +13,11 @@ def main():
     print("Emerald has launched.")
 
     while True:
-        try:
-            player = pm.read_int(client + dwLocalPlayer)
-            flash_value = player + m_flFlashMaxAlpha
+        player = pm.read_int(client + dwLocalPlayer)
+        flash_value = player + m_flFlashMaxAlpha
+        if flash_value:
             pm.write_float(flash_value, float(0))
-            time.sleep(0.002)
-        except pymem.exception.MemoryReadError:
-            pass  # Can happen if script loads before alive in-game.
-        except pymem.exception.MemoryWriteError:
-            pass  # Same reason as above.
+            time.sleep(1)
 
 
 if __name__ == '__main__':
