@@ -17,7 +17,7 @@ def main():
             flash_value = player + m_flFlashMaxAlpha
             if flash_value:
                 pm.write_float(flash_value, float(0))
-                time.sleep(1)
+        time.sleep(1)
 
 
 if __name__ == '__main__':
