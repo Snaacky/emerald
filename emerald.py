@@ -2,14 +2,14 @@ import pymem
 import pymem.process
 import time
 
-dwLocalPlayer = (0xD2FB84)
+dwLocalPlayer = (0xD36B94)
 m_flFlashMaxAlpha = (0xA40C)
 
 
 def main():
     print("Emerald has launched.")
     pm = pymem.Pymem("csgo.exe")
-    client = pymem.process.module_from_name(pm.process_handle, "client_panorama.dll").lpBaseOfDll
+    client = pymem.process.module_from_name(pm.process_handle, "client.dll").lpBaseOfDll
 
     while True:
         player = pm.read_int(client + dwLocalPlayer)
